@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Gap's Gallery
+  </title>
+  <link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23263A47'/%3E%3Cpath d='M20 21l4-6h16l4 6h5a7 7 0 0 1 7 7v18a7 7 0 0 1-7 7H15a7 7 0 0 1-7-7V28a7 7 0 0 1 7-7h5z' fill='%23B4C5DB'/%3E%3Ccircle cx='32' cy='36' r='10' fill='%23263A47'/%3E%3Ccircle cx='32' cy='36' r='6' fill='%2398A9BE'/%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/>
+  <link href="style.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header class="header">
+   <a class="logo" href="#">
+    PHOTO / ARCHIVE
+   </a>
+   <div class="header-actions">
+    <button class="header-btn admin-only owner-only hidden" id="ownerUsersBtn">
+     Администраторы
+    </button>
+    <button class="header-btn" id="loginBtn">
+     Войти
+    </button>
+    <button class="header-btn admin-only hidden" id="logoutBtn">
+     Выйти
+    </button>
+   </div>
+  </header>
+  <section class="hero">
+   <div class="hero-overlay">
+   </div>
+   <div class="hero-content">
+    <p class="hero-small">
+     PERSONAL PHOTO ARCHIVE
+    </p>
+    <h1>
+     Gap's
+     <br/>
+     Gallery
+    </h1>
+   </div>
+  </section>
+  <div class="admin-toolbar admin-only hidden" id="adminToolbar">
+   <div>
+    <strong>
+     Режим администратора
+    </strong>
+    <span>
+     Вы видите сайт так же, как посетители
+    </span>
+   </div>
+   <button class="primary-btn" id="newCategoryBtn">
+    + Создать категорию
+   </button>
+  </div>
+  <main class="gallery" id="gallery">
+  </main>
+  <div class="viewer" id="viewer">
+   <div class="viewer-header">
+    <div>
+     <p class="eyebrow">
+      ALBUM
+     </p>
+     <h2 id="viewerTitle">
+     </h2>
+    </div>
+    <div class="viewer-actions">
+     <button class="soft-btn admin-only hidden" id="viewerEditBtn">
+      ✎ Редактировать
+     </button>
+     <button class="soft-btn" id="closeViewer">
+      Закрыть
+     </button>
+    </div>
+   </div>
+   <div class="viewer-grid" id="viewerGrid">
+   </div>
+  </div>
+  <div aria-hidden="true" class="photo-lightbox" id="photoLightbox">
+   <div class="photo-lightbox-top">
+    <span class="photo-counter" id="photoCounter">
+    </span>
+    <div class="photo-lightbox-actions">
+     <button aria-label="Скачать фотографию" class="lightbox-btn" id="downloadPhotoBtn" title="Скачать фотографию" type="button">
+      <svg aria-hidden="true" viewbox="0 0 24 24">
+       <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 18v2h14v-2">
+       </path>
+      </svg>
+      <span>
+       Скачать
+      </span>
+     </button>
+     <button aria-label="Закрыть" class="lightbox-icon-btn" id="closePhotoLightbox" title="Закрыть" type="button">
+      ×
+     </button>
+    </div>
+   </div>
+   <button aria-label="Предыдущая фотография" class="lightbox-nav lightbox-prev" id="prevPhotoBtn" type="button">
+    <svg aria-hidden="true" viewbox="0 0 24 24">
+     <path d="M14.5 5.5 8 12l6.5 6.5">
+     </path>
+    </svg>
+   </button>
+   <div class="photo-lightbox-stage">
+    <img alt="" id="lightboxImage"/>
+   </div>
+   <button aria-label="Следующая фотография" class="lightbox-nav lightbox-next" id="nextPhotoBtn" type="button">
+    <svg aria-hidden="true" viewbox="0 0 24 24">
+     <path d="m9.5 5.5 6.5 6.5-6.5 6.5">
+     </path>
+    </svg>
+   </button>
+  </div>
+  <div class="modal" id="loginModal">
+   <div class="modal-card small">
+    <button class="modal-x" data-close="loginModal">
+     ×
+    </button>
+    <p class="eyebrow">
+     ADMIN ACCESS
+    </p>
+    <h2>
+     Вход
+    </h2>
+    <p class="muted" id="loginHint">
+     Войдите с email и паролем владельца или администратора.
+    </p>
+    <form id="loginForm">
+     <label>
+      Email
+      <input autocomplete="email" id="email" required="" type="email"/>
+     </label>
+     <label>
+      Пароль
+      <div class="password-wrap">
+       <input autocomplete="current-password" id="password" required="" type="password"/>
+       <button aria-label="Показать пароль" class="password-eye" data-toggle-password="password" title="Показать пароль" type="button">
+       </button>
+      </div>
+     </label>
+     <label class="remember-row">
+      <input checked="" id="rememberMe" type="checkbox"/>
+      <span>
+       Оставаться в системе
+      </span>
+     </label>
+     <button class="primary-btn wide" type="submit">
+      Войти
+     </button>
+    </form>
+   </div>
+  </div>
+  <div class="modal" id="editCategoryModal">
+   <div class="modal-card small">
+    <button class="modal-x" data-close="editCategoryModal">
+     ×
+    </button>
+    <p class="eyebrow">
+     EDIT CATEGORY
+    </p>
+    <h2>
+     Изменить категорию
+    </h2>
+    <p class="muted">
+     Измените название категории. Альбомы внутри неё сохранятся.
+    </p>
+    <label>
+     Название категории
+     <input id="editCategoryName" placeholder="Название категории" type="text"/>
+    </label>
+    <div class="modal-actions category-modal-actions">
+     <button class="danger-btn" id="deleteCategoryBtn">
+      Удалить категорию
+     </button>
+     <div class="modal-actions-right">
+      <button class="soft-btn" data-close="editCategoryModal">
+       Отмена
+      </button>
+      <button class="primary-btn" id="saveCategoryBtn">
+       Сохранить
+      </button>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="deleteCategoryModal">
+   <div class="modal-card small">
+    <button class="modal-x" data-close="deleteCategoryModal">
+     ×
+    </button>
+    <p class="eyebrow">
+     DELETE CATEGORY
+    </p>
+    <h2>
+     Удалить категорию?
+    </h2>
+    <p class="muted" id="deleteCategoryText">
+    </p>
+    <div class="modal-actions">
+     <button class="soft-btn" data-close="deleteCategoryModal">
+      Отмена
+     </button>
+     <button class="danger-btn" id="confirmDeleteCategoryBtn">
+      Удалить
+     </button>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="categoryModal">
+   <div class="modal-card small">
+    <button class="modal-x" data-close="categoryModal">
+     ×
+    </button>
+    <p class="eyebrow">
+     NEW CATEGORY
+    </p>
+    <h2>
+     Создать категорию
+    </h2>
+    <p class="muted">
+     Добавьте новую группу для ваших альбомов.
+    </p>
+    <label>
+     Название категории
+     <input id="newCategoryName" placeholder="Например: Путешествия" type="text"/>
+    </label>
+    <div class="modal-actions category-modal-actions">
+     <button class="soft-btn" data-close="categoryModal">
+      Отмена
+     </button>
+     <button class="primary-btn" id="createCategoryBtn">
+      Создать
+     </button>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="editModal">
+   <div class="modal-card">
+    <button class="modal-x" data-close="editModal">
+     ×
+    </button>
+    <p class="eyebrow">
+     EDIT ALBUM
+    </p>
+    <h2 id="editHeading">
+     Альбом
+    </h2>
+    <label>
+     Название
+     <input id="editName" type="text"/>
+    </label>
+    <label>
+     Категория
+     <select id="editCategory">
+     </select>
+    </label>
+    <label>
+     Доступ
+     <select id="editAccess">
+      <option value="public">
+       Открытый
+      </option>
+      <option value="password">
+       По паролю
+      </option>
+      <option value="link">
+       По приватной ссылке
+      </option>
+     </select>
+    </label>
+    <div class="access-settings hidden" id="passwordSettings">
+     <label>
+      Пароль альбома
+      <div class="password-wrap">
+       <input id="albumPassword" minlength="4" placeholder="Минимум 4 символа" type="password"/>
+       <button aria-label="Показать пароль" class="password-eye" data-toggle-password="albumPassword" title="Показать пароль" type="button">
+       </button>
+      </div>
+     </label>
+     <span class="muted">
+      Пароль сохраняется в защищённом виде и не показывается повторно.
+     </span>
+    </div>
+    <div class="access-settings hidden" id="linkSettings">
+     <span class="upload-field-label">
+      Приватная ссылка
+     </span>
+     <label class="link-expiry-label">
+      Срок действия ссылки
+      <select id="albumLinkExpiry">
+       <option value="1d">
+        1 день
+       </option>
+       <option selected="" value="7d">
+        7 дней
+       </option>
+       <option value="30d">
+        30 дней
+       </option>
+       <option value="90d">
+        3 месяца
+       </option>
+       <option value="never">
+        Без срока действия
+       </option>
+      </select>
+     </label>
+     <span class="muted" id="albumLinkExpiryStatus">
+     </span>
+     <div class="share-link-row">
+      <input id="albumShareLink" placeholder="Ссылка появится после сохранения" readonly="" type="text"/>
+      <button class="soft-btn" id="copyShareLinkBtn" type="button">
+       Копировать
+      </button>
+     </div>
+     <button class="soft-btn link-regenerate-btn" id="regenerateShareLinkBtn" type="button">
+      Создать новую ссылку
+     </button>
+    </div>
+    <div class="upload-section">
+     <span class="upload-field-label">
+      Добавить фотографии
+     </span>
+     <input accept="image/*" class="upload-input" id="photoInput" multiple="" type="file"/>
+     <label class="photo-dropzone" for="photoInput" id="photoDropzone">
+      <span class="upload-plus">
+       +
+      </span>
+      <span class="upload-title">
+       Добавить фотографии
+      </span>
+      <span class="upload-hint">
+       Нажмите или перетащите изображения сюда
+      </span>
+     </label>
+    </div>
+    <div class="photo-editor-head">
+     <div>
+      <strong>
+       Фотографии альбома
+      </strong>
+      <span>
+       Перетаскивайте фотографии мышкой. Нажмите «Обложка», чтобы выбрать главную.
+      </span>
+     </div>
+    </div>
+    <div class="photo-editor" id="photoEditor">
+    </div>
+    <div class="modal-actions">
+     <button class="danger-btn" id="deleteAlbumBtn">
+      Удалить альбом
+     </button>
+     <button class="primary-btn" id="saveAlbumBtn">
+      Сохранить
+     </button>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="albumPasswordModal">
+   <div class="modal-card small">
+    <button class="modal-x" data-close="albumPasswordModal">
+     ×
+    </button>
+    <p class="eyebrow">
+     PRIVATE ALBUM
+    </p>
+    <h2 id="passwordAlbumTitle">
+     Закрытый альбом
+    </h2>
+    <p class="muted">
+     Введите пароль, чтобы открыть фотографии.
+    </p>
+    <form id="albumPasswordForm">
+     <label>
+      Пароль
+      <div class="password-wrap">
+       <input autocomplete="off" id="visitorAlbumPassword" required="" type="password"/>
+       <button aria-label="Показать пароль" class="password-eye" data-toggle-password="visitorAlbumPassword" title="Показать пароль" type="button">
+       </button>
+      </div>
+     </label>
+     <div class="login-error" id="albumPasswordError">
+     </div>
+     <div class="modal-actions">
+      <button class="primary-btn" type="submit">
+       Открыть
+      </button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <div class="modal" id="usersModal">
+   <div class="modal-card">
+    <button class="modal-x" data-close="usersModal">
+     ×
+    </button>
+    <p class="eyebrow">
+     ACCESS
+    </p>
+    <h2>
+     Администраторы
+    </h2>
+    <div class="user-row">
+     <div class="avatar">
+      O
+     </div>
+     <div>
+      <strong>
+       Вы
+      </strong>
+      <span>
+       owner@example.com
+      </span>
+     </div>
+     <b>
+      Владелец
+     </b>
+    </div>
+    <div id="adminsList">
+    </div>
+    <div class="invite-row">
+     <input id="adminEmail" placeholder="Email нового администратора" type="email"/>
+     <button class="primary-btn" id="addAdminBtn">
+      Добавить
+     </button>
+    </div>
+   </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+  </script>
+  <script src="js/config.js">
+  </script>
+  <script src="js/app.js">
+  </script>
+  <div aria-live="polite" class="app-toast" id="appToast" role="status">
+  </div>
+ </body>
+</html>
