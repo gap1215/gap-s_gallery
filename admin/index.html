@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Photo Archive — Admin</title><link rel="stylesheet" href="admin.css"></head>
+<body>
+<main id="loginScreen" class="login-screen"><div class="login-card"><div class="login-mark">PA</div><p class="small-label">PHOTO ARCHIVE</p><h1>Вход</h1><p class="muted">Демонстрационная панель управления</p><form id="loginForm"><label>Email<input type="email" value="owner@example.com" required></label><label>Пароль<input type="password" value="preview" required></label><button class="primary-button" type="submit">Войти</button></form><p class="hint">Для предпросмотра подойдут любые email и пароль.</p></div></main>
+<div id="dashboard" class="dashboard hidden">
+<aside class="sidebar"><div><div class="brand">PHOTO / ARCHIVE</div><nav><button class="nav-button active" data-page="albums">Альбомы</button><button class="nav-button" data-page="categories">Категории</button><button class="nav-button" data-page="users">Пользователи</button></nav></div><div class="account"><div><strong>Владелец</strong><small>Owner</small></div><button id="logoutButton">Выйти</button></div></aside>
+<main class="content">
+<section id="page-albums" class="admin-page"><div class="page-header"><div><p class="small-label">COLLECTION</p><h2>Альбомы</h2></div><button class="primary-button">+ Новый альбом</button></div><div class="cards"><div class="card"><strong>Berlin</strong><span>3 фото · Открытый</span></div><div class="card"><strong>Architecture</strong><span>2 фото · Открытый</span></div><div class="card"><strong>Summer</strong><span>3 фото · Открытый</span></div></div></section>
+<section id="page-categories" class="admin-page hidden"><div class="page-header"><div><p class="small-label">ORGANIZATION</p><h2>Категории</h2></div><button class="primary-button">+ Категория</button></div><div class="cards"><div class="card"><strong>Goodzone</strong><span>3 альбома</span></div><div class="card"><strong>Личное</strong><span>1 альбом</span></div></div></section>
+<section id="page-users" class="admin-page hidden"><div class="page-header"><div><p class="small-label">ACCESS</p><h2>Пользователи</h2></div><button class="primary-button">+ Администратор</button></div><div class="user-card"><div class="avatar">O</div><div class="user-info"><strong>Владелец</strong><span>owner@example.com</span></div><div class="role">Владелец</div></div></section>
+</main></div><script src="admin.js"></script></body></html>
